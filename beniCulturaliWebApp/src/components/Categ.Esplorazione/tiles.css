@@ -1,0 +1,48 @@
+div .tiles-container {
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 16px;
+    width: 70%;
+    height: 40vh;
+    display: grid;
+    position: relative;
+    grid-template-columns: repeat(2, 2 fr);
+    grid-template-rows: repeat(1, 1fr);
+    column-gap: 2px black;
+    margin: 200px 0 0 200px ;
+    border-top: 1px sandybrown;
+    padding: 10px 10px 10px 20px;
+    border-radius: 20px;
+    background-color: bisque;
+    
+        
+}
+
+
+
+.tile1 {
+    width: 10%;
+    height: 10%;
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+    justify-self: center;
+    border-right: 1px black;
+}
+
+
+.tile2 {
+    width: 10%;
+    height: 10%;
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+    justify-self: center;
+    border-right: 1px black;
+}
+
+.tile3 {
+    width: 10%;
+    height: 10%;
+    grid-column: 3 / span 1;
+    grid-row: 1 / span 1;
+    justify-self: center;
+    border-right: 1px black;
+}
