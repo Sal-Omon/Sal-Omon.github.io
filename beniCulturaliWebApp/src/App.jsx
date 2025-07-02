@@ -1,15 +1,15 @@
 import "./App.css";
 import Header from "./components/Header/header.jsx";
-import Searchbar from "./searchbar/searchbar.jsx";
-import HeroSection from "./text/HeroSection.jsx";
-import Tiles from "./Categ.Esplorazione/tiles.jsx";
+import Searchbar from "./components/searchbar/searchbar.jsx";
+import HeroSection from "./components/text/HeroSection.jsx";
+import Tiles from "./components/Categ.Esplorazione/tiles.jsx";
 
 import { fetchSuggestions } from './utils/api.js';
 import { useState, useEffect } from "react";
 
 function App() {
   const [opera, setOpera] = useState([]); // Initialize with an empty array
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // This state will track if the data is still being fetched
   const [error, setError] = useState(null);
 
   //Fetching the Data: When the component mounts, 

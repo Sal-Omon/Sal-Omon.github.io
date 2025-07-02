@@ -6,7 +6,7 @@ const API_URL = 'http://localhost:5000/api/opere';
 //with fetch you manually do it with response.json()
 
 //if lastsearch is provided it will be used to filter correlated suggestions
-export const fetchingSuggestion = async (lastsearch = null) => {
+export const fetchingSuggestions = async (lastsearch = null) => {
     try {
         const url = lastsearch ? `${API_URL}/suggestions?last_search=${encodeURIComponent(lastsearch)}` : `${API_URL}/suggestions`;
         const { data } = await axios.get(url);
@@ -17,7 +17,7 @@ export const fetchingSuggestion = async (lastsearch = null) => {
     }
 }
 
-export const fetchingSearch = async () => { 
+export const fetchingSearch = async (query) => { 
 try{
     const url = `${API_URL}/suggestions?search=${encodeURIComponent(query)}`;
     const {data} = await axios.get(url);
