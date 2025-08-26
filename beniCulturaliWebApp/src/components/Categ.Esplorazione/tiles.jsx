@@ -1,7 +1,7 @@
 import React from 'react';
 import "./tiles.css";
 
-export default function Tiles({ opera }) {
+export default function Tiles({ opera }) { //opera destructuring is used to extract the opera object from props 
     // const data = Array.isArray(opera ? opera : [opera]);
 
     return (

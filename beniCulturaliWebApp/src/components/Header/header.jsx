@@ -7,7 +7,7 @@ function Header() {
         <>
             <div className="header-container">
                 <header className="top-header">
-                    <Logo testoLogo="logo" logo="./assets/react.svg" />
+                    <Logo testoLogo="Magic" logo="./assets/imgHomepage/CENACOLO.ico" />
 
                     <nav className="top-nav">
                         <ul>

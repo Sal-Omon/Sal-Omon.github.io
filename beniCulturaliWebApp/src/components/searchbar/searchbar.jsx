@@ -13,11 +13,7 @@ export default function Searchbar({ SearchIcon, SearchImg }) {
 
 
     function handleTextualSearch() {
-        const found = opere.find(elem =>
-            elem.name.toLowerCase().includes(input.toLowerCase())
-
-        );
-        setInput(found ? found.name : "No results are found prick")
+        fetch
     }
 
 

@@ -1,0 +1,3 @@
+la responsabilità del routing è di ricevere la richiesta HHTP
+validare i parametri di input minimi e delegare la logica ad un service layer.
+Evitare la logica di business all'interno delle route.
