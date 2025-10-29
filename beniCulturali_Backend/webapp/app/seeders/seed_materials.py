@@ -1,14 +1,13 @@
-from app import create_app,db
+from app.extensions import db
 from app.models.material import Material
 from faker import Faker
-from flask import app
+from flask import current_app
 
-app = create_app()
 fake = Faker()
 
 
 def seed_materials(commit=True):
-    app.logger.info(f"Seeding Materials")
+    current_app.logger.info(f"Seeding Materials")
     materials_data = [
         Material(material_name="Oil on Canva", material_description=fake.text(50)),
         Material(material_name="Bronzo", material_description=fake.text(50)),
@@ -21,5 +20,5 @@ def seed_materials(commit=True):
     db.session.add_all(materials_data)
     if commit:
         db.session.commit()
-        app.logger.info(f"Seeded {len(materials_data)} materials.")
-    return materials_data    
+        current_app.logger.info(f"Seeded {len(materials_data)} materials.")
+    return materials_data

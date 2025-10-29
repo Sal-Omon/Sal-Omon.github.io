@@ -1,4 +1,5 @@
-from app import db
+from app.extensions import db
+from .associations import artifact_materials
 
  #~many to many       
 class Material(db.Model):
@@ -7,14 +8,15 @@ class Material(db.Model):
     material_name = db.Column(db.String, nullable=False)
     material_description = db.Column(db.String)
     artifacts = db.relationship("Artifact",
-                                secondary="artifact_material",
+                                secondary=artifact_materials,
                                 back_populates="materials")  # relationship between Material
     
 
     def to_dict(self):
         return {
-            "id": self.material_id,
-            "name": self.material_name,
-            "description": self.material_description
+            "material_id": self.material_id,
+            "material_name": self.material_name,
+            "material_description": self.material_description,
+            "artifact_materials": self.artifacts
         }
         

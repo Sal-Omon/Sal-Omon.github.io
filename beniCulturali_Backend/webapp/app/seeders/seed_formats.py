@@ -1,13 +1,12 @@
-from app import create_app, db
+from app.extensions import db
 from app.models.format import Format
+from flask import current_app
 import os
 
 
-app = create_app()
-
 
 def seed_formats(commit: bool = True):
-    app.logger.info(f"Seeding formats")
+    current_app.logger.info(f"Seeding formats")
     formats_data = [
         Format(format_name = "Painting"),
         Format(format_name = "Sculpture"),
@@ -26,9 +25,9 @@ def seed_formats(commit: bool = True):
         db.session.add_all(formats_data)
         if commit:
             db.session.commit()
-            app.logger.info(f"Seeded {len(formats_data)} formats.")
+            current_app.logger.info(f"Seeded {len(formats_data)} formats.")
     except Exception as e:
-        app.logger.error(f"Error seeding formats: {e}")
+        current_app.logger.error(f"Error seeding formats: {e}")
         db.session.rollback()
         raise
     return formats_data

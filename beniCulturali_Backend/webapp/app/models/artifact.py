@@ -1,16 +1,5 @@
-from app import db
-
-artifact_material = db.Table(
-    'artifact_material',
-    db.Column('artifact_id', db.Integer, db.ForeignKey('artifacts.id'), primary_key=True),
-    db.Column('material_id', db.Integer, db.ForeignKey('materials.material_id'), primary_key=True)
-)
-
-artifact_tags = db.Table(
-    'artifact_tags',
-    db.Column('artifact_id', db.Integer, db.ForeignKey('artifacts.id'), primary_key=True),
-    db.Column('tag_id', db.Integer, db.ForeignKey('tags.tag_id'), primary_key=True)
-)
+from app.extensions import db
+from app.models.associations import artifact_materials,artifact_tags,artifact_creators
 
 
 class Artifact(db.Model):
@@ -24,17 +13,15 @@ class Artifact(db.Model):
     format_id = db.Column(db.Integer, db.ForeignKey("formats.format_id"))
     format = db.relationship("Format", back_populates="artifacts")
 
-    creator_id = db.Column(db.Integer, db.ForeignKey("creators.creator_id"))
-    creator = db.relationship("Creator", back_populates="artifacts")
-
     location_id = db.Column(db.Integer, db.ForeignKey("locations.location_id"))
     location = db.relationship("Location", back_populates="artifacts")
 
     # Many-to-many: materials, tags
     materials = db.relationship(
         "Material",
-        secondary=artifact_material,
-        back_populates="artifacts"
+        secondary=artifact_materials,
+        back_populates="artifacts",
+        lazy="selectin", #efficient loading for collections
     )
 
     tags = db.relationship(
@@ -43,24 +30,37 @@ class Artifact(db.Model):
         back_populates="artifacts"
     )
 
-    # One-to-many: images (an artifact has many images)
+    creators = db.relationship(
+        "Creator",
+        secondary=artifact_creators,
+        back_populates="artifacts",
+        )
+
+    # One-to-many: images (an artifact has many images) & conservation_reports
     images = db.relationship(
         "Image",
         back_populates="artifact",
-        cascade="all, delete-orphan"
+        cascade="all, delete-orphan",
+        lazy="selectin"
     )
 
-    # Conservation reports (one-to-many)
-    conservation_report = db.relationship("ConservationReport", back_populates="artifact")
+    conservation_report = db.relationship(
+        "ConservationReport", 
+        back_populates="artifact",
+        lazy="selectin"
+    )
 
+    def __repr__(self):
+        return f"<Artifact id={self.id} name={self.name}>"
+    
     def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
             "description": self.description,
             "format": self.format.format_name if self.format else None,
-            "creator": self.creator.creator_name if self.creator else None,
             "location": self.location.location_name if self.location else None,
+            "creators": [c.to_dict() for c in self.creators] if self.creators else [],
             "materials": [m.to_dict() for m in self.materials] if self.materials else [],
             "tags": [t.to_dict() for t in self.tags] if self.tags else [],
             "images": [img.to_dict() for img in self.images] if self.images else [],

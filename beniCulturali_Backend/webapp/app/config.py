@@ -2,7 +2,7 @@
 import os
 
 # Database connection: fallback to local Postgres if DATABASE_URL not set
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost/beniculturali_db")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@127.0.0.1:5432/beniculturali_db")
 SQLALCHEMY_DATABASE_URI = DATABASE_URL
 
 # Disable modification tracking (saves memory)

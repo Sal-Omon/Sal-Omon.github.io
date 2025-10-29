@@ -1,7 +1,4 @@
-from flask import Flask
-
-
-app = Flask(__name__)
-
-for bp in all_blueprints:
-    app.register_blueprint(bp)
+"""
+Temporaneamente vuoto evitando cosi import ciclici(pain in the ass)
+gli import del blueprint vanno fatti localmente nella factory(create_app)
+"""

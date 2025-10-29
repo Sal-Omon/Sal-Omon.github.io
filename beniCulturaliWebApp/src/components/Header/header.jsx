@@ -1,6 +1,6 @@
 import "./header.css";
 import Logo from "../../assets/logo";
-import HeroSection from "../text/HeroSection";
+import HeroSection from "../Text/HeroSection";
 
 function Header() {
     return (

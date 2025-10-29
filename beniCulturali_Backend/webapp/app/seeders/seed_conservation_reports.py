@@ -1,34 +1,40 @@
-from app import create_app, db
+from app.extensions import db
 from app.models.conservation_report import ConservationReport
-from app.seeders.seed_creators import seed_creators
-import app
+from flask import current_app
 from faker import Faker
 import random
+import logging
 
 fake = Faker()
-app = create_app()
+logger = logging.getLogger(__name__)
 
 
 def seed_conservation_reports(artifacts, commit=True):
+    """If True, commits the changes to the database.
+                       Otherwise, the session is left open."""
         #table's Seeding with multiple dependecies
-    app.logger.info(f"Seeding Conservation reports")
+    logger.info(f"Seeding Conservation reports for {len(artifacts) if artifacts else 0} artifacts")
     
-    conservation_reports_data = []
-    for artifact in artifacts:
+    reports = []
+    for artifact in artifacts or []:
         num_reports = random.randint(0,2)
         for _ in range(num_reports):
             report = ConservationReport(
                 artifact=artifact,
-                conservation_details = fake.sentence(100),
-                actual_conditions = fake.sentence(50),
-                preservation_needs = fake.sentence(100),
+                conservation_details = fake.sentence(nb_words=12),
+                actual_conditions = fake.sentence(nb_words=50),
+                preservation_needs = fake.sentence(nb_words=100),
                 date= fake.date_between(start_date='-5y', end_date='today')
             )
+            db.session.add(report)
+            reports.append(report)
             
-            conservation_reports_data.append(report)
-            
-    db.session.add_all(conservation_reports_data)
     if commit:
-        db.session.commit()
-        app.logger.info(f"Seeded {len(conservation_reports_data)}")
-    return conservation_reports_data    
+        try:
+            db.session.commit()
+            logger.info(f"Seeded conservation reports {len(reports)}")
+        except Exception as e:
+            logger.exception(f"Error committing conservation reports: {e}")
+            raise
+        
+    return reports    

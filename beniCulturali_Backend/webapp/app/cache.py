@@ -1,7 +1,7 @@
 from redis import Redis
 import os
 import logging
-
+import json
 
 logger = logging.getLogger(__name__)
 _redis_client: Redis | None = None
@@ -25,12 +25,12 @@ def get_redis_client() -> Redis:
         raise
             
          
- def cache_get(key: str):
+def cache_get(key: str):
     client = get_redis_client()
     data = client.get(key)
     return json.loads(data) if data else None
  
- def cache_set(key: str, value, timeout: int = 100):
+def cache_set(key: str, value, timeout: int = 100):
     client = get_redis_client()
     client.set(key, json.dumps(value), ex=timeout)
             

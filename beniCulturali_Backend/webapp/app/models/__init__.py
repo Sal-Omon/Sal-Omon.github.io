@@ -1,4 +1,7 @@
 from app.extensions import db
+
+from .associations import artifact_materials, artifact_tags, artifact_creators
+
 from .artifact import Artifact
 from .format import Format
 from .creator import Creator
@@ -9,6 +12,10 @@ from .tag import Tag
 from .conservation_report import ConservationReport
 
 __all__ = [
+    "db",
+    "artifact_materials",
+    "artifact_tags",
+    "artifact_creators",
     "Artifact",
     "Format",
     "Creator",

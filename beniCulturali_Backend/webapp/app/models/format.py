@@ -1,4 +1,4 @@
-from app import db
+from app.extensions import db
 
 
 class Format(db.Model):
@@ -11,6 +11,6 @@ class Format(db.Model):
 
     def to_dict(self):
         return {
-            "id": self.format_id,
-            "name": self.format_name
+            "format_id": self.format_id,
+            "format_name": self.format_name
         }

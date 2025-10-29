@@ -1,0 +1,46 @@
+.form-searchbar {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    background-color: aliceblue;
+}
+
+.searchbar-input{
+    flex: 1;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    height: 2.2em;
+    font-size: 16px;
+    padding: 10px;
+    background-color: transparent;
+    padding-right: 3em;
+}
+
+#icone {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5;
+}
+
+#icone button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex-end;
+    align-items: center;
+}
+
+#icone img {
+    width: 20px;
+    height: 20px;
+}
+
+#searchbar-label label {
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+}
